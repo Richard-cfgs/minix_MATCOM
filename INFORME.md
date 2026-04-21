@@ -82,3 +82,5 @@ Al intentar conectarme por ssh con normalidad tuve otro problema, y es que al in
 me fallaba la autenticacion, me decia q la contrasena root era incorrecta. Despues de unos cuantos intentos
 de romperme la cabeza se me ocurrio intentarlo por el usuario alternativo que me habia creado al crear la vm, 
 y entonces me dejo entrar.
+
+![Welcome message picture](assets/welcome.png)
