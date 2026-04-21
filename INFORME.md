@@ -1,10 +1,11 @@
-Integrantes:
+## Integrantes:
 Richard Alejandro Reyes Gracia C212
 Jorge Julio de Leon Masson C212
 
 # 2. Desarrollo y resultados por componentes
 ### 2.1. Instalacion y configuracion de minix
 **RICHARD**
+
 El emulador que use fue Qemu 10.2.2 usado porque mi computadora es ARM y 
 Minix 3.4.0 requiere x86, VirtuaBox no se usó xq este solo virtualiza
 
@@ -29,6 +30,7 @@ Git: Clonar repositorio oficial (/usr/src) y subir cambios a GitHub
 Nano: Editar archivos como /usr/src/etc/motd
 
 **JORGE**
+
 Para crear la maquina virtual decidi usar Qemu ya que hace algun tiempo tuve
 probelmas con virtual box sobre mi plataforma linux y he usado desde entonces
 qemu para gestionar maquinas virtuales, inicialmente sobre la interfaz grafica
