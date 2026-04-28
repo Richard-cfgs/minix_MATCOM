@@ -68,14 +68,14 @@ ambas maquinas, me dispuse a activar el servicio ssh para facilitarme el trabajo
 cree la maquina virtual no me di cuenta de lo siguiente: en el archivo de configuracion dice q el puerto 
 por defecto es el 22 pero era necesario mapearlo a un puerto de mi pc, asi q anadi estas lineas que estaban 
 en la seccion de ssh de la pagina de la documentacion dedicadas a la virtualizacion con qemu:
-'''bash
+```bash
 -net user,hostfwd=tcp::10022-:22 -net nic
-'''
+```
 Las agregue, arranque el ssh en minix, con una peculiaridad y es que aunque la documentacion brinda este 
 comando:
-'''bash
+```bash
 /usr/pkg/etc/rc.d/sshd start
-'''
+```
 Me pidio que usara 'onestart' en lugar de 'start'.
 
 Al intentar conectarme por ssh con normalidad tuve otro problema, y es que al intentar entrar por root
@@ -90,8 +90,8 @@ y entonces me dejo entrar.
 
 Implemente en el metodo main la siguiente estructura para el manejo de argumentos en la invocacion del programa:
 
-'''
-c
+```c
+
 int main(const int argc, char *argv[]) {
     char *firstArg = argc > 1 ? argv[1] : NULL;
     char *secondArg = argc > 2 ? argv[2] : NULL;
@@ -118,13 +118,12 @@ int main(const int argc, char *argv[]) {
     printf("%s\n", path);
     tree(path, 1);
 }
-'''
+```
 
 Se manejan como posibles argumentos :
 --depth, -d para la profundidad de la recursion, la cual se maneja en una variable estatica dentro del archivo y sirve como un break extra
 
-'''
-c
+```c
 static long maxDepth = -1; //-1 significa sin profundidad establecida
 
 y se agrega el siguiente caso base a la funcion
@@ -136,7 +135,7 @@ void tree(...){
     }   
     ...
 
-'''
+```
 ![Depth usage](assets/tree_usage_1.png)
 
 
@@ -147,8 +146,7 @@ void tree(...){
 el manejo de los argumentos se realiza en una funcion aparte que retorna un entero que se interpreta en el switch mediante una codificacion implementada para interpretar
 las configuraciones, mientras que -1*$code equivaldria a un error en el uso de esa opcion:
 
-'''
-c
+```c
 int argParse(const char *firstArg, const char *secondArg) {
 
     if (firstArg == NULL) {
@@ -176,7 +174,7 @@ int argParse(const char *firstArg, const char *secondArg) {
 
     return 0;
 }
-'''
+```
 
 
 En el metodo se realizan comparaciones pertinentes para retornar un codigo entendible por el switch en main()
