@@ -84,3 +84,103 @@ de romperme la cabeza se me ocurrio intentarlo por el usuario alternativo que me
 y entonces me dejo entrar.
 
 ![Welcome message picture](assets/welcome.png)
+
+### 2.4. Implementacion del comando tree
+
+
+Implemente en el metodo main la siguiente estructura para el manejo de argumentos en la invocacion del programa:
+
+'''
+c
+int main(const int argc, char *argv[]) {
+    char *firstArg = argc > 1 ? argv[1] : NULL;
+    char *secondArg = argc > 2 ? argv[2] : NULL;
+    char *thirdArg = argc > 3 ? argv[3] : NULL;
+    char *path;
+    long depth = -1;
+
+    switch (argParse(firstArg, secondArg)) {
+        case 1:
+            printHelp();
+            return 0;
+        case 2:
+            maxDepth = strtol(secondArg, NULL, 10);
+            path = thirdArg == NULL ? "." : thirdArg;
+            break;
+        case -2:
+            printf("%s\n", "Enter a valid number for depth");
+            return 0;
+        default:
+            path = firstArg == NULL ? "." : firstArg;
+
+    }
+
+    printf("%s\n", path);
+    tree(path, 1);
+}
+'''
+
+Se manejan como posibles argumentos :
+--depth, -d para la profundidad de la recursion, la cual se maneja en una variable estatica dentro del archivo y sirve como un break extra
+
+'''
+c
+static long maxDepth = -1; //-1 significa sin profundidad establecida
+
+y se agrega el siguiente caso base a la funcion
+
+void tree(...){
+    ...
+    if (depth > maxDepth && maxDepth != -1) {
+        return;
+    }   
+    ...
+
+'''
+![Depth usage](assets/tree_usage_1.png)
+
+
+--help, -h que simplemente imprime en pantalla un mensaje de ayuda
+![Help usage](assets/tree_usage_2.png)
+
+
+el manejo de los argumentos se realiza en una funcion aparte que retorna un entero que se interpreta en el switch mediante una codificacion implementada para interpretar
+las configuraciones, mientras que -1*$code equivaldria a un error en el uso de esa opcion:
+
+'''
+c
+int argParse(const char *firstArg, const char *secondArg) {
+
+    if (firstArg == NULL) {
+        return 0;
+    }
+
+    if (strcmp(firstArg, "--help") == 0 || strcmp(firstArg, "-h") == 0) {
+        return 1;
+    }
+
+    if (secondArg == NULL) {
+        return 0;
+    }
+    if (strcmp(firstArg, "--depth") == 0 || strcmp(firstArg, "-d") == 0) {
+        char *endptr;
+
+        long _ = strtol(secondArg, &endptr, 10);
+
+        if (strcmp(endptr, "") != 0) {
+            return -2;
+        }
+
+        return 2;
+    }
+
+    return 0;
+}
+'''
+
+
+En el metodo se realizan comparaciones pertinentes para retornar un codigo entendible por el switch en main()
+
+
+Ejemplo de uso:
+![Usage](assets/tree_usage_3.png)
